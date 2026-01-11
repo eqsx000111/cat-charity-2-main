@@ -136,3 +136,4 @@ test.db
 fast_api.db
 .db
 fastapi.db
+.DS_Store
