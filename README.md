@@ -39,7 +39,7 @@ Cat Charity — это REST API, который позволяет:
 
 ```bash
 git clone https://github.com/eqsx000111/cat-charity-2-main
-cd cat-charity-1-main
+cd cat-charity-2-main
 ```
 
 ### 2. Создать и активировать виртуальное окружение
