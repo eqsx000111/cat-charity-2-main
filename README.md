@@ -38,7 +38,7 @@ Cat Charity — это REST API, который позволяет:
 ### 1. Клонировать репозиторий
 
 ```bash
-git clone https://github.com/eqsx000111/cat-charity-1-main
+git clone https://github.com/eqsx000111/cat-charity-2-main
 cd cat-charity-1-main
 ```
 

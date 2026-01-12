@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from sqlalchemy import Boolean, DateTime, Integer
+from sqlalchemy import Boolean, CheckConstraint, DateTime, Integer
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.db import Base
@@ -9,9 +9,24 @@ from app.core.db import Base
 REPR_TEMPLATE = '{name} id={id} full={full} invest={invest} closed={closed}'
 
 
-class AbstractBase(Base):
+class ProjectDonationBase(Base):
 
     __abstract__ = True
+
+    __table_args__ = (
+        CheckConstraint(
+            'full_amount > 0',
+            name='check_full_amount_positive'
+        ),
+        CheckConstraint(
+            'invested_amount >= 0',
+            name='check_invested_non_negative'
+        ),
+        CheckConstraint(
+            'invested_amount <= full_amount',
+            name='check_invested_not_exceed_full'
+        ),
+    )
 
     full_amount: Mapped[int] = mapped_column(Integer, nullable=False)
     invested_amount: Mapped[int] = mapped_column(

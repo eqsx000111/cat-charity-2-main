@@ -1,12 +1,12 @@
 from sqlalchemy import String, Text
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.models.base import AbstractBase
+from app.models.base import ProjectDonationBase
 
 REPR_TEMPLATE = '{base} name={name} description={description}'
 
 
-class CharityProject(AbstractBase):
+class CharityProject(ProjectDonationBase):
     name: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     description: Mapped[str] = mapped_column(Text, nullable=False)
 
