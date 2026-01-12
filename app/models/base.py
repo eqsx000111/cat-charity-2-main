@@ -6,10 +6,13 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.db import Base
 
-REPR_TEMPLATE = '{name} id={id} full={full} invest={invest} closed={closed}'
+REPR_TEMPLATE = (
+    '{name} id={id} full={full} invest={invest} closed={closed} '
+    'create_date={create_date} close_date={close_date}'
+)
 
 
-class ProjectDonationBase(Base):
+class InvestableBase(Base):
 
     __abstract__ = True
 
@@ -19,12 +22,8 @@ class ProjectDonationBase(Base):
             name='check_full_amount_positive'
         ),
         CheckConstraint(
-            'invested_amount >= 0',
-            name='check_invested_non_negative'
-        ),
-        CheckConstraint(
-            'invested_amount <= full_amount',
-            name='check_invested_not_exceed_full'
+            'invested_amount >= 0 AND invested_amount <= full_amount',
+            name='check_invested_amount_range'
         ),
     )
 
@@ -60,5 +59,7 @@ class ProjectDonationBase(Base):
             id=self.id,
             full=self.full_amount,
             invest=self.invested_amount,
-            closed=self.fully_invested
+            closed=self.fully_invested,
+            create_date=self.create_date,
+            close_date=self.close_date
         )

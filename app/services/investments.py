@@ -1,12 +1,12 @@
 from typing import Iterable
 
-from app.protocols.investable import Investable
+from app.models.base import InvestableBase
 
 
 def invest(
-        target: Investable,
-        sources: Iterable[Investable]
-) -> list[Investable]:
+        target: InvestableBase,
+        sources: Iterable[InvestableBase]
+) -> list[InvestableBase]:
     modified = []
     for source in sources:
         modified.append(source)

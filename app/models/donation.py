@@ -1,12 +1,12 @@
 from sqlalchemy import ForeignKey, Integer, Text
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.models.base import ProjectDonationBase
+from app.models.base import InvestableBase
 
 REPR_TEMPLATE = '{base} comment={comment}'
 
 
-class Donation(ProjectDonationBase):
+class Donation(InvestableBase):
     comment: Mapped[str] = mapped_column(Text, nullable=True)
     user_id: Mapped[int] = mapped_column(
         Integer,
