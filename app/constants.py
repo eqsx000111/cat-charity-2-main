@@ -9,3 +9,8 @@ DELETE_INVESTED_PROJECT = (
     'Нельзя удалить проект, в который уже были инвестированы средства.'
 )
 PROJECT_NAME_EXIST = 'Проект с таким названием уже существует!'
+FORMAT = '%Y/%m/%d %H:%M:%S'
+SCOPES = [
+    'https://www.googleapis.com/auth/spreadsheets',
+    'https://www.googleapis.com/auth/drive'
+]
