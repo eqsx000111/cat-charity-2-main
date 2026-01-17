@@ -1,4 +1,5 @@
 from aiogoogle import Aiogoogle
+from aiogoogle.excs import AiogoogleError, HTTPError
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -10,7 +11,6 @@ from app.services.google_api import (
     set_user_permissions,
     update_spreadsheets_value
 )
-from app.services.reports import prepare_projects_report
 
 router = APIRouter()
 
@@ -25,10 +25,14 @@ async def get_report(
     projects = await charity_project_crud.get_projects_by_completion_rate(
         session
     )
-    spreadsheetid = await create_spreadsheets(wrapper_services)
-    await set_user_permissions(spreadsheetid, wrapper_services)
-    await update_spreadsheets_value(
-        spreadsheetid=spreadsheetid,
-        rows=prepare_projects_report(projects),
-        wrapper_services=wrapper_services
-    )
+    spreadsheet_id, spreadsheet_url = await create_spreadsheets(wrapper_services)
+    await set_user_permissions(spreadsheet_id, wrapper_services)
+    try:
+        await update_spreadsheets_value(
+            spreadsheet_id=spreadsheet_id,
+            projects=projects,
+            wrapper_services=wrapper_services
+        )
+    except AiogoogleError as error:
+        raise HTTPError(error)
+    return spreadsheet_url

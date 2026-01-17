@@ -9,6 +9,10 @@ from sqlalchemy.orm import (
 
 from app.core.config import settings
 
+REPR_TEMPLATE = (
+    '{name} id={id}'
+)
+
 
 class Base(DeclarativeBase):
 
@@ -16,6 +20,8 @@ class Base(DeclarativeBase):
     def __tablename__(cls):
         return cls.__name__.lower()
 
+    def __repr__(self):
+        return REPR_TEMPLATE.format(name=type(self), id=self.id)
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
 
 

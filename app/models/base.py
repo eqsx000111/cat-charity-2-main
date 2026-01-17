@@ -7,7 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from app.core.db import Base
 
 REPR_TEMPLATE = (
-    '{name} id={id} full={full} invest={invest} closed={closed} '
+    'base={base} full={full} invest={invest} closed={closed} '
     'create_date={create_date} close_date={close_date}'
 )
 
@@ -55,8 +55,7 @@ class InvestableBase(Base):
 
     def __repr__(self):
         return REPR_TEMPLATE.format(
-            name=type(self),
-            id=self.id,
+            base=super().__repr__(),
             full=self.full_amount,
             invest=self.invested_amount,
             closed=self.fully_invested,

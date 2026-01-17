@@ -15,5 +15,7 @@ class Donation(InvestableBase):
     )
 
     def __repr__(self):
-        base = super().__repr__()
-        return REPR_TEMPLATE.format(base=base, comment=self.comment)
+        return REPR_TEMPLATE.format(
+            base=super().__repr__(),
+            comment=self.comment
+        )

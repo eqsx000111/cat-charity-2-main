@@ -11,9 +11,8 @@ class CharityProject(InvestableBase):
     description: Mapped[str] = mapped_column(Text, nullable=False)
 
     def __repr__(self):
-        base = super().__repr__()
         return REPR_TEMPLATE.format(
-            base=base,
+            base=super().__repr__(),
             name=self.name,
             description=self.description
         )
