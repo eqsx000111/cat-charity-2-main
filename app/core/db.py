@@ -16,13 +16,14 @@ REPR_TEMPLATE = (
 
 class Base(DeclarativeBase):
 
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+
     @declared_attr
     def __tablename__(cls):
         return cls.__name__.lower()
 
     def __repr__(self):
         return REPR_TEMPLATE.format(name=type(self), id=self.id)
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
 
 
 engine = create_async_engine(settings.database_url)

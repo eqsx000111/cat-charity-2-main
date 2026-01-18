@@ -3,13 +3,7 @@ from datetime import datetime
 
 from aiogoogle import Aiogoogle
 
-from app.constants import (
-    FORMAT,
-    SHEET_COLUMNS,
-    SHEET_ROWS,
-    TO_MUTCH_COLUMNS,
-    TO_MUTCH_ROWS
-)
+from app.constants import FORMAT
 from app.core.config import settings
 from app.services.reports import calculate_duration_days
 
@@ -18,6 +12,13 @@ TABLE_HEADER_TEMPLATE = [
     ['Топ проектов по скорости закрытия'],
     ['Название проекта', 'Время сбора (дней)', 'Описание'],
 ]
+TO_MUTCH_COLUMNS = (
+    'Передано колонок: {in_columns}, максимально допустимо: {max_columns}'
+)
+TO_MUTCH_ROWS = 'Передано строк: {in_rows}, максимально допустимо: {max_rows}'
+
+SHEET_ROWS = 100
+SHEET_COLUMNS = 11
 
 SPREADSHEET_TEMPLATE = dict(
     properties=dict(
@@ -31,8 +32,8 @@ SPREADSHEET_TEMPLATE = dict(
                 sheetId=0,
                 title='Лист1',
                 gridProperties=dict(
-                    rowCount=100,
-                    columnCount=11,
+                    rowCount=SHEET_ROWS,
+                    columnCount=SHEET_COLUMNS,
                 ),
             )
         )
@@ -115,10 +116,17 @@ async def update_spreadsheets_value(
     columns_count = max(len(row) for row in table_values)
 
     if rows_count > SHEET_ROWS:
-        raise ValueError(TO_MUTCH_ROWS)
+        raise ValueError(
+            TO_MUTCH_ROWS.format(in_rows=rows_count, max_rows=SHEET_ROWS)
+        )
 
     if columns_count > SHEET_COLUMNS:
-        raise ValueError(TO_MUTCH_COLUMNS)
+        raise ValueError(
+            TO_MUTCH_COLUMNS.format(
+                in_columns=columns_count,
+                max_columns=SHEET_COLUMNS
+            )
+        )
 
     await wrapper_services.as_service_account(
         service.spreadsheets.values.update(
