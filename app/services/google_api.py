@@ -7,19 +7,17 @@ from app.constants import FORMAT
 from app.core.config import settings
 from app.services.reports import calculate_duration_days
 
+SHEET_ROWS = 100
+SHEET_COLUMNS = 11
+TO_MUTCH_COLUMNS = (
+    'Передано колонок: {in_columns}, максимально допустимо: {max_columns}'
+)
+TO_MUTCH_ROWS = 'Передано строк: {in_rows}, максимально допустимо: {max_rows}'
 TABLE_HEADER_TEMPLATE = [
     ['Отчёт от', '{date}'],
     ['Топ проектов по скорости закрытия'],
     ['Название проекта', 'Время сбора (дней)', 'Описание'],
 ]
-TO_MUTCH_COLUMNS = (
-    'Передано колонок: {in_columns}, максимально допустимо: {max_columns}'
-)
-TO_MUTCH_ROWS = 'Передано строк: {in_rows}, максимально допустимо: {max_rows}'
-
-SHEET_ROWS = 100
-SHEET_COLUMNS = 11
-
 SPREADSHEET_TEMPLATE = dict(
     properties=dict(
         title='Отчёт от {date}',
