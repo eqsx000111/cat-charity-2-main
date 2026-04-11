@@ -92,11 +92,15 @@ uvicorn app.main:app --reload
 
 ## Автор
 
-**GitHub:** [eqsx000111](https://github.com/eqsx000111) 
+**GitHub:** [eqsx000111](https://github.com/eqsx000111)
 
-**Email:** [deddotu@yandex.ru](mailto:deddotu@yandex.ru)   
+**Email:** [deddotu@yandex.ru](mailto:deddotu@yandex.ru)
 
-**ФИО:** Ильницкий Иван Александрович  
+**Telegram:** @eqsx1
+
+**Phone number:** 89787172691
+
+**ФИО:** Ильницкий Иван Александрович 
 
 
 ---
